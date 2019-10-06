@@ -16,11 +16,11 @@ export class CardComponent {
   @HostBinding('style.top.px') get top() { return this.card.y; }
 
   @HostListener('mousedown', ['$event'])
-  onTouch(event) {
+  onTouch(event: any) {
     if (!this.card.hidden) {
-      this.selected.emit({x: event.clientX, y: event.clientY});
+      this.selected.emit({ x: event.clientX, y: event.clientY });
     }
   }
 
-  constructor() {}
+  constructor() { }
 }

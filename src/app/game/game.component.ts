@@ -1,7 +1,6 @@
 import { Component, HostListener } from '@angular/core';
 
 import { Card } from '../card';
-import { EventListener } from '@angular/core/src/debug/debug_node';
 
 @Component({
   selector: 'app-game',

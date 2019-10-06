@@ -10,14 +10,12 @@ export class GameContentComponent {
   @Input() columns: Card[][];
   @Output() cardSelected = new EventEmitter();
 
-  constructor() {}
+  constructor() { }
 
   onCardSelected(event: any, card: Card) {
     event.cards = [card];
     this.cardSelected.emit(event);
   }
 
-  onMouseUp() {
-    console.log('yo');
-  }
+  onMouseUp() { }
 }
