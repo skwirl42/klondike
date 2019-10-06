@@ -1,0 +1,12 @@
+:host {
+  background: grey;
+  flex: 1;
+}
+
+#score {
+  color: black;
+}
+
+#score-value {
+  color: white;
+}

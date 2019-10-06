@@ -1,0 +1,5 @@
+<div class="columns">
+  <div class="column" *ngFor="let column of columns" (mouseup)="onMouseUp()">
+    <app-card *ngFor="let card of column" [card]="card" (selected)="onCardSelected($event, card)"></app-card>
+  </div>
+</div>

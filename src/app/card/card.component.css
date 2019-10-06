@@ -1,0 +1,22 @@
+:host {
+  height: 20vh;
+  width: 5vw;
+  border-radius: 5px;
+  background: white;
+  display: block;
+  border: 1px solid black;
+  position: relative;
+  transition: 300ms;
+  user-select: none;
+  cursor: pointer;
+}
+
+:host(.hidden) {
+  background: red;
+  cursor: default;
+}
+
+:host(.dragging) {
+  z-index: 1;
+  transition: 0ms;
+}
