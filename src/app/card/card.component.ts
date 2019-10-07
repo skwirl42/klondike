@@ -16,9 +16,20 @@ export class CardComponent {
   @HostBinding('style.top.px') get top() { return this.card.y; }
 
   @HostListener('mousedown', ['$event'])
-  onTouch(event: any) {
+  onMouseDown(event: any) {
+    this.onDragStart(event.clientX, event.clientY);
+  }
+
+  @HostListener('touchstart', ['$event'])
+  onTouchStart(event: any) {
+    event.preventDefault();
+    const touch = event.changedTouches[0];
+    this.onDragStart(touch.clientX, touch.clientY);
+  }
+
+  onDragStart(xEvent: number, yEvent: number) {
     if (!this.card.hidden) {
-      this.selected.emit({ x: event.clientX, y: event.clientY });
+      this.selected.emit({ x: xEvent, y: yEvent });
     }
   }
 

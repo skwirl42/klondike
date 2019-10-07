@@ -26,10 +26,21 @@ export class GameComponent {
   }
 
   @HostListener('mousemove', ['$event'])
-  onMove(event: any) {
+  onMouseMove(event: any) {
+    this.onMove(event.clientX, event.clientY);
+  }
+
+  @HostListener('touchmove', ['$event'])
+  onTouchMove(event: any) {
+    event.preventDefault();
+    const touch = event.changedTouches[0];
+    this.onMove(touch.clientX, touch.clientY);
+  }
+
+  onMove(xEvent: number, yEvent: number) {
     if (this.dragging) {
-      const x = event.clientX - this.baseX;
-      const y = event.clientY - this.baseY;
+      const x = xEvent - this.baseX;
+      const y = yEvent - this.baseY;
       this.draggingCards.forEach(card => {
         card.x = x;
         card.y = y;
@@ -37,9 +48,9 @@ export class GameComponent {
     }
   }
 
+  @HostListener('touchend', ['$event'])
   @HostListener('mouseup', ['$event'])
   onRelease(event: any) {
-    console.log('parent');
     this.dragging = false;
     this.draggingCards.forEach(card => {
       card.x = 0;
