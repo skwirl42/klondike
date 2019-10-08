@@ -16,6 +16,4 @@ export class GameContentComponent {
     event.cards = [card];
     this.cardSelected.emit(event);
   }
-
-  onMouseUp() { }
 }

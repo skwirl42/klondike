@@ -17,7 +17,7 @@ export class GameComponent {
   columns: Card[][];
 
   dragging = false;
-  draggingCards: Card[];
+  draggingCards: Card[] = [];
   baseX = 0;
   baseY = 0;
 
