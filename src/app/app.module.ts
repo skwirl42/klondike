@@ -8,6 +8,8 @@ import { GameTopRowComponent } from './game-top-row/game-top-row.component';
 import { GameContentComponent } from './game-content/game-content.component';
 import { CardComponent } from './card/card.component';
 
+import { CardsService } from './services/cards.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,7 +22,9 @@ import { CardComponent } from './card/card.component';
   imports: [
     BrowserModule
   ],
-  providers: [],
+  providers: [
+    CardsService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
