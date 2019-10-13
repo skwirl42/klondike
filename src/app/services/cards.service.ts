@@ -6,6 +6,8 @@ import { Card } from '../card';
   providedIn: 'root',
 })
 export class CardsService {
+  history: Action[] = [];
+
   CARD_COLORS = 4;
   COLUMNS_NUMBER = 7;
   FAMILIY_NUMBER = 13;
@@ -14,6 +16,38 @@ export class CardsService {
   stock: Card[];
 
   constructor() { }
+
+  private canMove(movingCard: Card, targetCard: Card): boolean {
+    return ((movingCard.suit.color !== targetCard.suit.color) && (movingCard.cardNumericValue === targetCard.cardNumericValue - 1));
+  }
+
+  private moveCards(draggingCards: Card[], targetColumn: Card[]) {
+    let originColumn: Card[];
+    let originIndex = 0;
+    this.columns.map((column) => {
+      column.forEach((card, index) => {
+        if (card === draggingCards[0]) {
+          originColumn = column;
+          originIndex = index;
+        }
+      });
+    });
+    if (originColumn) {
+      originColumn.splice(originIndex, draggingCards.length);
+      if (originColumn.length && originColumn[originColumn.length - 1].hidden) {
+        originColumn[originColumn.length - 1].hidden = false;
+      }
+    }
+    draggingCards.forEach(card => targetColumn.push(card));
+  }
+
+  tryToMove(draggingCards: Card[], columnIndex: number) {
+    const column = this.columns[columnIndex];
+    const target = column[column.length - 1];
+    if (this.canMove(draggingCards[0], target)) {
+      this.moveCards(draggingCards, column);
+    }
+  }
 
   generateCards() {
     const cardsValues = [];

@@ -13,7 +13,9 @@ export class GameContentComponent {
   constructor() { }
 
   onCardSelected(event: any, card: Card) {
-    event.cards = [card];
+    const column = this.columns.find(c => (c.indexOf(card) !== -1));
+    const columnIndex = column.indexOf(card);
+    event.cards = column.slice(columnIndex);
     this.cardSelected.emit(event);
   }
 }

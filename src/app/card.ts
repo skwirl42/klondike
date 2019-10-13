@@ -34,6 +34,11 @@ export class Card {
   x = 0;
   y = 0;
 
+  public get cardNumericValue(): number {
+    const numericValue = this.value % 13;
+    return numericValue;
+  }
+
   public get cardValue(): string {
     const numericValue = this.value % 13;
     if (numericValue > 9) {
