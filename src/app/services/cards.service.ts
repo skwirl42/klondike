@@ -6,8 +6,6 @@ import { Card } from '../card';
   providedIn: 'root',
 })
 export class CardsService {
-  history: Action[] = [];
-
   CARD_COLORS = 4;
   COLUMNS_NUMBER = 7;
   FAMILIY_NUMBER = 13;
