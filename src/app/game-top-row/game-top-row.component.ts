@@ -7,7 +7,7 @@ import { Card } from '../card';
   styleUrls: ['./game-top-row.component.css']
 })
 export class GameTopRowComponent implements OnInit {
-  card: Card = new Card();
+  card: Card = new Card(0);
 
   constructor() { }
 

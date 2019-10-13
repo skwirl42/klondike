@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Card } from '../card';
+import { Column, ColumnType } from '../column';
 
 @Injectable({
   providedIn: 'root',
@@ -10,48 +11,35 @@ export class CardsService {
   COLUMNS_NUMBER = 7;
   FAMILIY_NUMBER = 13;
 
-  columns: Card[][];
-  stock: Card[];
+  columns: Column[];
+  stock: Column;
 
   constructor() { }
 
-  private canMove(movingCard: Card, targetCard: Card): boolean {
-    return ((movingCard.suit.color !== targetCard.suit.color) && (movingCard.cardNumericValue === targetCard.cardNumericValue - 1));
+  private canMove(movingCard: Card, target: Column): boolean {
+    return (target.length &&
+      movingCard.suit.color !== target.frontCard.suit.color &&
+      (movingCard.cardNumericValue === target.frontCard.cardNumericValue - 1));
   }
 
-  private moveCards(draggingCards: Card[], targetColumn: Card[]) {
-    let originColumn: Card[];
-    let originIndex = 0;
-    this.columns.map((column) => {
-      column.forEach((card, index) => {
-        if (card === draggingCards[0]) {
-          originColumn = column;
-          originIndex = index;
-        }
-      });
-    });
-    if (originColumn) {
-      originColumn.splice(originIndex, draggingCards.length);
-      if (originColumn.length && originColumn[originColumn.length - 1].hidden) {
-        originColumn[originColumn.length - 1].hidden = false;
-      }
-    }
-    draggingCards.forEach(card => targetColumn.push(card));
+  private findOriginalColumn(card: Card): Column {
+    return this.columns.find(column => column.contains(card));
   }
 
-  tryToMove(draggingCards: Card[], columnIndex: number) {
-    const column = this.columns[columnIndex];
-    const target = column[column.length - 1];
+  private moveCards(draggingCards: Card[], targetColumn: Column) {
+    const originalColumn = this.findOriginalColumn(draggingCards[0]);
+    originalColumn.removeCards(draggingCards);
+    targetColumn.addCards(draggingCards);
+  }
+
+  tryToMove(draggingCards: Card[], target: Column) {
     if (this.canMove(draggingCards[0], target)) {
-      this.moveCards(draggingCards, column);
+      this.moveCards(draggingCards, target);
     }
   }
 
   generateCards() {
-    const cardsValues = [];
-    for (let i = 0; i < this.CARD_COLORS * this.FAMILIY_NUMBER; i++) {
-      cardsValues.push(i);
-    }
+    const cardsValues = Array.from(Array(this.CARD_COLORS * this.FAMILIY_NUMBER).keys());
     const cardsValuesShuffled = [];
     while (cardsValues.length) {
       const randomIndex = Math.floor(Math.random() * cardsValues.length);
@@ -60,16 +48,12 @@ export class CardsService {
     }
     this.columns = [];
     for (let i = 0; i < this.COLUMNS_NUMBER; i++) {
-      this.columns[i] = [];
+      const cards = [];
       for (let j = 0; j <= i; j++) {
-        const card = new Card();
-        if (j === i) {
-          card.hidden = false;
-        }
-        card.value = cardsValuesShuffled.shift();
-        this.columns[i].push(card);
+        cards.push(new Card(cardsValuesShuffled.shift()));
       }
+      this.columns.push(new Column(cards, ColumnType.Column));
     }
-    this.stock = cardsValuesShuffled;
+    this.stock = new Column(cardsValuesShuffled, ColumnType.Stock);
   }
 }

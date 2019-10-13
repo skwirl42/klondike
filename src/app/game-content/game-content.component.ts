@@ -1,4 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+
+import { Column } from '../column';
 import { Card } from '../card';
 
 @Component({
@@ -7,15 +9,14 @@ import { Card } from '../card';
   styleUrls: ['./game-content.component.css']
 })
 export class GameContentComponent {
-  @Input() columns: Card[][];
+  @Input() columns: Column[];
   @Output() cardSelected = new EventEmitter();
 
   constructor() { }
 
   onCardSelected(event: any, card: Card) {
-    const column = this.columns.find(c => (c.indexOf(card) !== -1));
-    const columnIndex = column.indexOf(card);
-    event.cards = column.slice(columnIndex);
+    const column = this.columns.find(c => c.contains(card));
+    event.cards = column.getCardsAbove(card);
     this.cardSelected.emit(event);
   }
 }

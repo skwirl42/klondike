@@ -1,6 +1,7 @@
-import { Component, HostListener, Host, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 
 import { Card } from '../card';
+import { Column } from '../column';
 import { CardsService } from '../services/cards.service';
 
 @Component({
@@ -14,7 +15,7 @@ export class GameComponent implements OnInit {
   baseX = 0;
   baseY = 0;
 
-  columns: Card[][];
+  columns: Column[];
   score = 0;
 
   innerHeight: number;
@@ -73,7 +74,7 @@ export class GameComponent implements OnInit {
   private onRelease(xEvent: number, yEvent: number) {
     this.dragging = false;
     if (yEvent > this.innerHeight / 100 * 23) {
-      const selectedColumn = Math.floor(xEvent / (this.innerWidth / 7));
+      const selectedColumn = this.columns[Math.floor(xEvent / (this.innerWidth / 7))];
       this.cardsService.tryToMove(this.draggingCards, selectedColumn);
     }
     this.resetDragginCards();

@@ -1,5 +1,5 @@
 <div class="columns">
   <div class="column" *ngFor="let column of columns">
-    <app-card *ngFor="let card of column" [card]="card" (selected)="onCardSelected($event, card)"></app-card>
+    <app-card *ngFor="let card of column.cards" [card]="card" (selected)="onCardSelected($event, card)"></app-card>
   </div>
 </div>

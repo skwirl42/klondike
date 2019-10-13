@@ -7,7 +7,7 @@ import { Card } from '../card';
   styleUrls: ['./card.component.css']
 })
 export class CardComponent {
-  @Input() card: Card = new Card();
+  @Input() card: Card = new Card(0);
   @Output() selected = new EventEmitter();
 
   @HostBinding('class.hidden') get hidden() { return this.card.hidden; }

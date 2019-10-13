@@ -21,18 +21,19 @@ const suits: Suit[] = [
   },
 ];
 
-export class Suit {
+class Suit {
   symbol: string;
   code: string;
   color: string;
 }
 
 export class Card {
-  value = 0;
   hidden = true;
   dragging = false;
   x = 0;
   y = 0;
+
+  constructor(private value: number) { }
 
   public get cardNumericValue(): number {
     const numericValue = this.value % 13;
