@@ -8,19 +8,11 @@ jobs:
       - checkout
       - restore_cache:
           key: klondike-{{ .Branch }}-{{ checksum "package-lock.json" }}
-      - run:
-        name: Install local dependencies
-        command: npm install
+      - run: npm install
       - save_cache:
-          key: my-project-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          key: klondike-{{ .Branch }}-{{ checksum "package-lock.json" }}
           paths:
             - "node_modules"
-      - run:
-        name: Linting
-        command: npm run lint
-      - run:
-        name: Unit Testing
-        command: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
-      - run:
-        name: End to End Test
-        command: npm run e2e -- --protractor-config=e2e/protractor-ci.conf.js
+      - run: npm run lint
+      - run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+      - run: npm run e2e -- --protractor-config=e2e/protractor-ci.conf.js
