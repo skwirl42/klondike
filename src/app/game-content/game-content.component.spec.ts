@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GameContentComponent } from './game-content.component';
+import { AppCardStubComponent } from '../card/card.component.stub';
 
 describe('GameContentComponent', () => {
   let component: GameContentComponent;
@@ -8,9 +9,12 @@ describe('GameContentComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GameContentComponent ]
+      declarations: [
+        GameContentComponent,
+        AppCardStubComponent
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

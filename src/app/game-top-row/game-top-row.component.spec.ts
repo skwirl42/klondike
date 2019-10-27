@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GameTopRowComponent } from './game-top-row.component';
+import { AppCardStubComponent } from '../card/card.component.stub';
+import { Stock } from '../stock';
 
 describe('GameTopRowComponent', () => {
   let component: GameTopRowComponent;
@@ -8,14 +10,21 @@ describe('GameTopRowComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GameTopRowComponent ]
+      declarations: [
+        GameTopRowComponent,
+        AppCardStubComponent
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(GameTopRowComponent);
     component = fixture.componentInstance;
+
+    component.stock = new Stock([]);
+    component.foundations = [];
+
     fixture.detectChanges();
   });
 
