@@ -1,6 +1,6 @@
 :host {
-  height: 8vh;
-  width: 10vw;
+  height: 8vmax;
+  width: 10vmin;
   border-radius: 5px;
   background: white;
   display: block;

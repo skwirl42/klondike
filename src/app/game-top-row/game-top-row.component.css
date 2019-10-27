@@ -1,12 +1,23 @@
 :host {
   background: #2c7b3a;
-  flex: 13;
   position: relative;
 }
 
+@media (orientation: landscape) {
+  :host {
+    flex: 20;
+  }
+}
+
+@media (orientation: portrait) {
+  :host {
+    flex: 13;
+  }
+}
+
 .stockCards {
-  height: 8vh;
-  width: 10vw;
+  height: 8vmax;
+  width: 10vmin;
   border-radius: 5px;
   border: 1px solid black;
   position: absolute;
@@ -19,7 +30,7 @@
 
 .stockCards>app-card {
   cursor: pointer;
-  margin-top: -7.5vh;
+  margin-top: -7.5vmax;
 }
 
 .revealedCards {
@@ -29,11 +40,11 @@
 }
 
 .revealedCards app-card {
-  margin-left: -7vw;
+  margin-left: -7vmin;
 }
 
 .foundations {
-  width: 50vw;
+  width: 50vmin;
   position: absolute;
   right: 0;
   display: flex;
@@ -41,8 +52,8 @@
 }
 
 .foundation {
-  height: 8vh;
-  width: 10vw;
+  height: 8vmax;
+  width: 10vmin;
   border-radius: 5px;
   border: 1px solid black;
   position: relative;

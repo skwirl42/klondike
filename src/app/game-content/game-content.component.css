@@ -1,6 +1,17 @@
 :host {
   background: #33a14a;
-  flex: 77;
+}
+
+@media (orientation: landscape) {
+  :host {
+    flex: 70;
+  }
+}
+
+@media (orientation: portrait) {
+  :host {
+    flex: 77;
+  }
 }
 
 .columns {
@@ -13,7 +24,7 @@
 }
 
 .column>app-card {
-  margin-top: -6vh;
+  margin-top: -6vmax;
 }
 
 .column>app-card:first-child {
