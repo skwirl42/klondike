@@ -23,9 +23,9 @@ jobs:
       enabled: true
     steps:
       - run:
-        name: Deploy Over SCP
-        command: |
-          scp -r dist/ "$SSH_USER@$SSH_HOST:$SSH_DEPLOY_PATH"
+          name: Deploy Over SCP
+          command: |
+            scp -r dist/ "$SSH_USER@$SSH_HOST:$SSH_DEPLOY_PATH"
 
 workflows:
   version: 2
