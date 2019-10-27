@@ -1,1 +1,10 @@
-<app-card [card]="card"></app-card>
+<div class="stockCards" (click)="onResetStock()">
+  <app-card *ngFor="let card of lastThreeOf(stock.cards)" [card]="card" (click)="onStockClicked($event)"></app-card>
+</div>
+<div class="revealedCards">
+  <app-card *ngFor="let card of lastThreeOf(stock.revealedCards)" [card]="card"
+    (selected)="onCardSelected($event, card)"></app-card>
+</div>
+<div class="foundations">
+
+</div>

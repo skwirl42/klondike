@@ -1,16 +1,9 @@
 import { Card } from './card';
+import { CardContainer } from './card-container';
 
-export enum ColumnType {
-  Column,
-  Stock,
-  Foundation
-}
-
-export class Column {
-  constructor(public cards: Card[], private type: ColumnType) {
-    if (this.type === ColumnType.Column) {
-      this.frontCard.hidden = false;
-    }
+export class Column implements CardContainer {
+  constructor(public cards: Card[]) {
+    this.frontCard.hidden = false;
   }
 
   get frontCard(): Card {
@@ -31,7 +24,7 @@ export class Column {
 
   removeCards(cards: Card[]): void {
     this.cards.splice(this.cards.indexOf(cards[0]));
-    if (this.type === ColumnType.Column && this.frontCard && this.frontCard.hidden) {
+    if (this.frontCard && this.frontCard.hidden) {
       this.frontCard.hidden = false;
     }
   }

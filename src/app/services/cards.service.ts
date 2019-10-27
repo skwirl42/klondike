@@ -1,18 +1,20 @@
 import { Injectable } from '@angular/core';
 
-import { Card } from '../card';
-import { Column, ColumnType } from '../column';
+import { Card, suits } from '../card';
+import { Column } from '../column';
+import { Stock } from '../stock';
+import { CardContainer } from '../card-container';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class CardsService {
-  CARD_COLORS = 4;
   COLUMNS_NUMBER = 7;
   FAMILIY_NUMBER = 13;
 
   columns: Column[];
-  stock: Column;
+  stock: Stock;
 
   constructor() { }
 
@@ -22,13 +24,16 @@ export class CardsService {
       (movingCard.cardNumericValue === target.frontCard.cardNumericValue - 1));
   }
 
-  private findOriginalColumn(card: Card): Column {
+  private findOriginalContainer(card: Card): CardContainer {
+    if (this.stock.contains(card)) {
+      return this.stock;
+    }
     return this.columns.find(column => column.contains(card));
   }
 
   private moveCards(draggingCards: Card[], targetColumn: Column) {
-    const originalColumn = this.findOriginalColumn(draggingCards[0]);
-    originalColumn.removeCards(draggingCards);
+    const originalContainer = this.findOriginalContainer(draggingCards[0]);
+    originalContainer.removeCards(draggingCards);
     targetColumn.addCards(draggingCards);
   }
 
@@ -39,7 +44,7 @@ export class CardsService {
   }
 
   generateCards() {
-    const cardsValues = Array.from(Array(this.CARD_COLORS * this.FAMILIY_NUMBER).keys());
+    const cardsValues = Array.from(Array(suits.length * this.FAMILIY_NUMBER).keys());
     const cardsValuesShuffled = [];
     while (cardsValues.length) {
       const randomIndex = Math.floor(Math.random() * cardsValues.length);
@@ -52,8 +57,16 @@ export class CardsService {
       for (let j = 0; j <= i; j++) {
         cards.push(new Card(cardsValuesShuffled.shift()));
       }
-      this.columns.push(new Column(cards, ColumnType.Column));
+      this.columns.push(new Column(cards));
     }
-    this.stock = new Column(cardsValuesShuffled, ColumnType.Stock);
+    this.stock = new Stock(cardsValuesShuffled.map(value => new Card(value)));
+  }
+
+  getFromStock() {
+    this.stock.revealCards();
+  }
+
+  resetStock() {
+    this.stock.reset();
   }
 }

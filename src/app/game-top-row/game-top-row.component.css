@@ -1,4 +1,33 @@
 :host {
   background: #2c7b3a;
   flex: 13;
+  position: relative;
+}
+
+.stockCards {
+  height: 8vh;
+  width: 10vw;
+  border-radius: 5px;
+  border: 1px solid black;
+  position: absolute;
+  cursor: pointer;
+}
+
+.stockCards>app-card:first-child {
+  margin-top: 0vh;
+}
+
+.stockCards>app-card {
+  cursor: pointer;
+  margin-top: -7.5vh;
+}
+
+.revealedCards {
+  left: 20%;
+  position: absolute;
+  display: flex;
+}
+
+.revealedCards app-card {
+  margin-left: -7vw;
 }

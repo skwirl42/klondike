@@ -1,4 +1,4 @@
-const suits: Suit[] = [
+export const suits: Suit[] = [
   {
     symbol: '♠',
     code: 'spade',

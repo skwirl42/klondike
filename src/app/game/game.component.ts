@@ -2,6 +2,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 
 import { Card } from '../card';
 import { Column } from '../column';
+import { Stock } from '../stock';
 import { CardsService } from '../services/cards.service';
 
 @Component({
@@ -10,12 +11,12 @@ import { CardsService } from '../services/cards.service';
   styleUrls: ['./game.component.css']
 })
 export class GameComponent implements OnInit {
-  dragging = false;
   draggingCards: Card[] = [];
   baseX = 0;
   baseY = 0;
 
   columns: Column[];
+  stock: Stock;
   score = 0;
 
   innerHeight: number;
@@ -24,6 +25,7 @@ export class GameComponent implements OnInit {
   constructor(private cardsService: CardsService) {
     this.cardsService.generateCards();
     this.columns = this.cardsService.columns;
+    this.stock = this.cardsService.stock;
   }
 
   ngOnInit() {
@@ -50,7 +52,7 @@ export class GameComponent implements OnInit {
   }
 
   private onMove(xEvent: number, yEvent: number) {
-    if (this.dragging) {
+    if (this.draggingCards.length) {
       const x = xEvent - this.baseX;
       const y = yEvent - this.baseY;
       this.draggingCards.forEach(card => {
@@ -72,12 +74,13 @@ export class GameComponent implements OnInit {
   }
 
   private onRelease(xEvent: number, yEvent: number) {
-    this.dragging = false;
-    if (yEvent > this.innerHeight / 100 * 23) {
-      const selectedColumn = this.columns[Math.floor(xEvent / (this.innerWidth / 7))];
-      this.cardsService.tryToMove(this.draggingCards, selectedColumn);
+    if (this.draggingCards.length) {
+      if (yEvent > this.innerHeight / 100 * 23) {
+        const selectedColumn = this.columns[Math.floor(xEvent / (this.innerWidth / 7))];
+        this.cardsService.tryToMove(this.draggingCards, selectedColumn);
+      }
+      this.resetDragginCards();
     }
-    this.resetDragginCards();
   }
 
   private resetDragginCards() {
@@ -86,6 +89,7 @@ export class GameComponent implements OnInit {
       card.y = 0;
       card.dragging = false;
     });
+    this.draggingCards = [];
   }
 
   public onCardSelected(event: any) {
@@ -95,6 +99,13 @@ export class GameComponent implements OnInit {
     this.draggingCards.forEach(card => {
       card.dragging = true;
     });
-    this.dragging = true;
+  }
+
+  public onStockClicked() {
+    this.cardsService.getFromStock();
+  }
+
+  public onResetStock() {
+    this.cardsService.resetStock();
   }
 }

@@ -23,7 +23,6 @@ export class CardComponent {
 
   @HostListener('touchstart', ['$event'])
   onTouchStart(event: any) {
-    event.preventDefault();
     const touch = event.changedTouches[0];
     this.onDragStart(touch.clientX, touch.clientY);
   }

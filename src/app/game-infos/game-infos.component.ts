@@ -12,5 +12,4 @@ export class GameInfosComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }
