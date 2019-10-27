@@ -32,7 +32,7 @@ jobs:
       - run:
           name: Deploy Over SCP
           command: |
-            scp -r dist/klondike/* "$SSH_USER@$SSH_HOST:$SSH_DEPLOY_PATH"
+            scp -r dist/klondike/klondike/* "$SSH_USER@$SSH_HOST:$SSH_DEPLOY_PATH"
 
 workflows:
   version: 2
