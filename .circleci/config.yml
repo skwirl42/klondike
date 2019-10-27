@@ -20,7 +20,7 @@ jobs:
       - persist_to_workspace:
           root: dist
           paths:
-            - '*'
+            - klondike
 
   deploy:
     working_directory: ~/klondike
@@ -28,11 +28,11 @@ jobs:
       enabled: true
     steps:
       - attach_workspace:
-          at: dist
+          at: dist/klondike
       - run:
           name: Deploy Over SCP
           command: |
-            scp -r dist/ "$SSH_USER@$SSH_HOST:$SSH_DEPLOY_PATH"
+            scp -r dist/klondike/ "$SSH_USER@$SSH_HOST:$SSH_DEPLOY_PATH"
 
 workflows:
   version: 2
