@@ -6,5 +6,7 @@
     (selected)="onCardSelected($event, card)"></app-card>
 </div>
 <div class="foundations">
-
+  <div class="foundation" *ngFor="let foundation of foundations">
+    <app-card *ngFor="let card of foundation.cards" [card]="card" (selected)="onCardSelected($event, card)"></app-card>
+  </div>
 </div>

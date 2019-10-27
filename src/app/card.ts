@@ -18,10 +18,10 @@ export const suits: Suit[] = [
     symbol: '♣',
     code: 'club',
     color: 'black'
-  },
+  }
 ];
 
-class Suit {
+export class Suit {
   symbol: string;
   code: string;
   color: string;

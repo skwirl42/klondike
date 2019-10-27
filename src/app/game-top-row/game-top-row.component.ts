@@ -2,6 +2,7 @@ import { Component, Input, EventEmitter, Output } from '@angular/core';
 
 import { Stock } from '../stock';
 import { Card } from '../card';
+import { Foundation } from '../foundation';
 
 @Component({
   selector: 'app-game-top-row',
@@ -10,6 +11,7 @@ import { Card } from '../card';
 })
 export class GameTopRowComponent {
   @Input() stock: Stock;
+  @Input() foundations: Foundation[];
   @Output() stockClicked = new EventEmitter();
   @Output() resetStock = new EventEmitter();
   @Output() cardSelected = new EventEmitter();

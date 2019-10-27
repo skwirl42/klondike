@@ -4,6 +4,7 @@ import { Card, suits } from '../card';
 import { Column } from '../column';
 import { Stock } from '../stock';
 import { CardContainer } from '../card-container';
+import { Foundation } from '../foundation';
 
 
 @Injectable({
@@ -14,12 +15,13 @@ export class CardsService {
   FAMILIY_NUMBER = 13;
 
   columns: Column[];
+  foundations: Foundation[];
   stock: Stock;
 
   constructor() { }
 
   private canMove(movingCard: Card, target: Column): boolean {
-    return (target.length &&
+    return ((!target.length && movingCard.cardNumericValue === this.FAMILIY_NUMBER - 1) || target.length &&
       movingCard.suit.color !== target.frontCard.suit.color &&
       (movingCard.cardNumericValue === target.frontCard.cardNumericValue - 1));
   }
@@ -28,10 +30,14 @@ export class CardsService {
     if (this.stock.contains(card)) {
       return this.stock;
     }
-    return this.columns.find(column => column.contains(card));
+    const foundation = this.foundations.find(f => f.contains(card));
+    if (foundation) {
+      return foundation;
+    }
+    return this.columns.find(c => c.contains(card));
   }
 
-  private moveCards(draggingCards: Card[], targetColumn: Column) {
+  private moveCards(draggingCards: Card[], targetColumn: CardContainer) {
     const originalContainer = this.findOriginalContainer(draggingCards[0]);
     originalContainer.removeCards(draggingCards);
     targetColumn.addCards(draggingCards);
@@ -60,6 +66,24 @@ export class CardsService {
       this.columns.push(new Column(cards));
     }
     this.stock = new Stock(cardsValuesShuffled.map(value => new Card(value)));
+    this.foundations = [];
+    suits.map((familiy) => {
+      this.foundations.push(new Foundation(familiy));
+    });
+  }
+
+  tryToMoveFoundation(cards: Card[]): boolean {
+    if (cards.length !== 1) {
+      return false;
+    }
+    const card = cards[0];
+    const foundation = this.foundations.find(f => f.suit === card.suit);
+    if ((!foundation.frontCard && card.cardNumericValue === 0) ||
+      (foundation.frontCard && foundation.frontCard.cardNumericValue + 1 === card.cardNumericValue)) {
+      this.moveCards(cards, foundation);
+      return true;
+    }
+    return false;
   }
 
   getFromStock() {

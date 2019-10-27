@@ -29,4 +29,8 @@ export class Stock implements CardContainer {
       }
     }
   }
+
+  addCards(cards: Card[]): void {
+    throw new Error('Method not implemented.');
+  }
 }

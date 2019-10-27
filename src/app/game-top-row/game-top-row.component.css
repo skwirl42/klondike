@@ -31,3 +31,23 @@
 .revealedCards app-card {
   margin-left: -7vw;
 }
+
+.foundations {
+  width: 50vw;
+  position: absolute;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.foundation {
+  height: 8vh;
+  width: 10vw;
+  border-radius: 5px;
+  border: 1px solid black;
+  position: relative;
+}
+
+.foundation>app-card {
+  position: absolute;
+}

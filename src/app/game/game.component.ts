@@ -4,6 +4,7 @@ import { Card } from '../card';
 import { Column } from '../column';
 import { Stock } from '../stock';
 import { CardsService } from '../services/cards.service';
+import { Foundation } from '../foundation';
 
 @Component({
   selector: 'app-game',
@@ -16,6 +17,7 @@ export class GameComponent implements OnInit {
   baseY = 0;
 
   columns: Column[];
+  foundations: Foundation[];
   stock: Stock;
   score = 0;
 
@@ -26,6 +28,7 @@ export class GameComponent implements OnInit {
     this.cardsService.generateCards();
     this.columns = this.cardsService.columns;
     this.stock = this.cardsService.stock;
+    this.foundations = this.cardsService.foundations;
   }
 
   ngOnInit() {
@@ -76,8 +79,10 @@ export class GameComponent implements OnInit {
   private onRelease(xEvent: number, yEvent: number) {
     if (this.draggingCards.length) {
       if (yEvent > this.innerHeight / 100 * 23) {
-        const selectedColumn = this.columns[Math.floor(xEvent / (this.innerWidth / 7))];
+        const selectedColumn = this.columns[Math.floor(xEvent / (this.innerWidth / this.cardsService.COLUMNS_NUMBER))];
         this.cardsService.tryToMove(this.draggingCards, selectedColumn);
+      } else {
+        this.cardsService.tryToMoveFoundation(this.draggingCards);
       }
       this.resetDragginCards();
     }

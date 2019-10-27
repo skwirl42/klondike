@@ -1,5 +1,5 @@
 <app-game-infos [score]="score"></app-game-infos>
-<app-game-top-row [stock]="stock" (stockClicked)="onStockClicked()" (cardSelected)="onCardSelected($event)"
-  (resetStock)="onResetStock()">
+<app-game-top-row [stock]="stock" [foundations]="foundations" (stockClicked)="onStockClicked()"
+  (cardSelected)="onCardSelected($event)" (resetStock)="onResetStock()">
 </app-game-top-row>
 <app-game-content [columns]="columns" (cardSelected)="onCardSelected($event)"></app-game-content>
