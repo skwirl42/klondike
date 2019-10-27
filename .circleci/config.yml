@@ -16,7 +16,7 @@ jobs:
       - run: npm run lint
       - run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
       - run: npm run e2e -- --protractor-config=e2e/protractor-ci.conf.js
-      - run: npm run build --prod --aot
+      - run: npm run build -- --prod --aot
       - persist_to_workspace:
           root: dist
           paths:
@@ -32,7 +32,7 @@ jobs:
       - run:
           name: Deploy Over SCP
           command: |
-            scp -r dist/klondike/ "$SSH_USER@$SSH_HOST:$SSH_DEPLOY_PATH"
+            scp -r dist/klondike/* "$SSH_USER@$SSH_HOST:$SSH_DEPLOY_PATH"
 
 workflows:
   version: 2

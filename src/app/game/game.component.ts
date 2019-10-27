@@ -36,7 +36,7 @@ export class GameComponent implements OnInit {
     this.innerWidth = window.innerWidth;
   }
 
-  @HostListener('window:resize', ['$event'])
+  @HostListener('window:resize', [])
   onResize() {
     this.innerHeight = window.innerHeight;
     this.innerWidth = window.innerWidth;
