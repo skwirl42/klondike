@@ -8,9 +8,9 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
-  it('should display welcome message', () => {
+  it('score should be at 0', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('Welcome to klondike!');
+    expect(page.getTitleText()).toEqual('0');
   });
 
   afterEach(async () => {
