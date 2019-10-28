@@ -26,6 +26,12 @@ export class CardsService {
       (movingCard.cardNumericValue === target.frontCard.cardNumericValue - 1));
   }
 
+  private canMoveFoundation(movingCard: Card, foundation: Foundation): boolean {
+    return (movingCard.suit === foundation.suit && (
+      (!foundation.frontCard && movingCard.cardNumericValue === 0) ||
+      (foundation.frontCard && foundation.frontCard.cardNumericValue + 1 === movingCard.cardNumericValue)));
+  }
+
   private findOriginalContainer(card: Card): CardContainer {
     if (this.stock.contains(card)) {
       return this.stock;
@@ -77,13 +83,24 @@ export class CardsService {
       return false;
     }
     const card = cards[0];
-    const foundation = this.foundations.find(f => f.suit === card.suit);
-    if ((!foundation.frontCard && card.cardNumericValue === 0) ||
-      (foundation.frontCard && foundation.frontCard.cardNumericValue + 1 === card.cardNumericValue)) {
+    const foundation = this.foundations.find(f => this.canMoveFoundation(card, f));
+    if (foundation) {
       this.moveCards(cards, foundation);
       return true;
     }
     return false;
+  }
+
+  tryToGuessMove(cards: Card[]) {
+    const card = cards[0];
+    const foundation = this.foundations.find(f => this.canMoveFoundation(card, f));
+    if (foundation) {
+      return this.moveCards(cards, foundation);
+    }
+    const column = this.columns.find(c => this.canMove(card, c));
+    if (column) {
+      this.moveCards(cards, column);
+    }
   }
 
   getFromStock() {

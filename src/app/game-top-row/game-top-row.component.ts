@@ -15,6 +15,7 @@ export class GameTopRowComponent {
   @Output() stockClicked = new EventEmitter();
   @Output() resetStock = new EventEmitter();
   @Output() cardSelected = new EventEmitter();
+  @Output() cardClicked = new EventEmitter();
 
   constructor() { }
 
@@ -32,7 +33,18 @@ export class GameTopRowComponent {
   }
 
   onCardSelected(event: any, card: Card) {
+    if (this.stock.contains(card) && this.stock.revealedCards[this.stock.revealedCards.length - 1] !== card) {
+      return false;
+    }
     event.cards = [card];
     this.cardSelected.emit(event);
+  }
+
+  onCardClicked(card: Card) {
+    if (this.stock.contains(card) && this.stock.revealedCards[this.stock.revealedCards.length - 1] !== card) {
+      return false;
+    }
+    const event = { cards: [card] };
+    this.cardClicked.emit(event);
   }
 }

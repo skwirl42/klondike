@@ -11,6 +11,7 @@ import { Card } from '../card';
 export class GameContentComponent {
   @Input() columns: Column[];
   @Output() cardSelected = new EventEmitter();
+  @Output() cardClicked = new EventEmitter();
 
   constructor() { }
 
@@ -18,5 +19,11 @@ export class GameContentComponent {
     const column = this.columns.find(c => c.contains(card));
     event.cards = column.getCardsAbove(card);
     this.cardSelected.emit(event);
+  }
+
+  onCardClicked(card: Card) {
+    const column = this.columns.find(c => c.contains(card));
+    const event = { cards: column.getCardsAbove(card) };
+    this.cardClicked.emit(event);
   }
 }

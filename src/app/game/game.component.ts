@@ -106,6 +106,11 @@ export class GameComponent implements OnInit {
     });
   }
 
+  public onCardClicked(event: any) {
+    const cards = event.cards;
+    this.cardsService.tryToGuessMove(cards);
+  }
+
   public onStockClicked() {
     this.cardsService.getFromStock();
   }
