@@ -1,5 +1,6 @@
 import { Card, Suit } from './card';
 import { CardContainer } from './card-container';
+import { registerLocaleData } from '@angular/common';
 
 export class Foundation implements CardContainer {
   public cards: Card[] = [];
@@ -16,6 +17,10 @@ export class Foundation implements CardContainer {
 
   get frontCard(): Card {
     return this.cards[this.length - 1];
+  }
+
+  get nextNumericValue(): number {
+    return this.length ? this.frontCard.cardNumericValue + 1 : 0;
   }
 
   removeCards(cards: Card[]): void {

@@ -27,9 +27,8 @@ export class CardsService {
   }
 
   private canMoveFoundation(movingCard: Card, foundation: Foundation): boolean {
-    return (movingCard.suit === foundation.suit && (
-      (!foundation.frontCard && movingCard.cardNumericValue === 0) ||
-      (foundation.frontCard && foundation.frontCard.cardNumericValue + 1 === movingCard.cardNumericValue)));
+    return (movingCard.suit === foundation.suit &&
+      foundation.nextNumericValue === movingCard.cardNumericValue);
   }
 
   private findOriginalContainer(card: Card): CardContainer {
@@ -49,13 +48,13 @@ export class CardsService {
     targetColumn.addCards(draggingCards);
   }
 
-  tryToMove(draggingCards: Card[], target: Column) {
+  public tryToMove(draggingCards: Card[], target: Column) {
     if (this.canMove(draggingCards[0], target)) {
       this.moveCards(draggingCards, target);
     }
   }
 
-  generateCards() {
+  public generateCards() {
     const cardsValues = Array.from(Array(suits.length * this.FAMILIY_NUMBER).keys());
     const cardsValuesShuffled = [];
     while (cardsValues.length) {
@@ -78,7 +77,7 @@ export class CardsService {
     });
   }
 
-  tryToMoveFoundation(cards: Card[]): boolean {
+  public tryToMoveFoundation(cards: Card[]): boolean {
     if (cards.length !== 1) {
       return false;
     }
@@ -91,7 +90,7 @@ export class CardsService {
     return false;
   }
 
-  tryToGuessMove(cards: Card[]) {
+  public tryToGuessMove(cards: Card[]) {
     const card = cards[0];
     const foundation = this.foundations.find(f => this.canMoveFoundation(card, f));
     if (foundation) {
@@ -103,11 +102,11 @@ export class CardsService {
     }
   }
 
-  getFromStock() {
+  public getFromStock() {
     this.stock.revealCards();
   }
 
-  resetStock() {
+  public resetStock() {
     this.stock.reset();
   }
 }
