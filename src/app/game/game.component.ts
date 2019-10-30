@@ -49,6 +49,9 @@ export class GameComponent implements OnInit {
 
   @HostListener('touchmove', ['$event'])
   onTouchMove(event: any) {
+    if (event.touches.length > 1) {
+      return false;
+    }
     event.preventDefault();
     const touch = event.changedTouches[0];
     this.onMove(touch.clientX, touch.clientY);
@@ -67,6 +70,9 @@ export class GameComponent implements OnInit {
 
   @HostListener('touchend', ['$event'])
   onTouchEnd(event: any) {
+    if (event.touches.length > 0) {
+      return false;
+    }
     const touch = event.changedTouches[0];
     this.onRelease(touch.clientX, touch.clientY);
   }
@@ -98,6 +104,9 @@ export class GameComponent implements OnInit {
   }
 
   public onCardSelected(event: any) {
+    if (this.draggingCards.length) {
+      return false;
+    }
     this.baseX = event.x;
     this.baseY = event.y;
     this.draggingCards = event.cards;
