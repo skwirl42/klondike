@@ -3,9 +3,9 @@ import { Component, Input } from '@angular/core';
 
 import { GameComponent } from './game.component';
 import { CardsService } from '../services/cards.service';
-import { Stock } from '../stock';
-import { Foundation } from '../foundation';
-import { Column } from '../column';
+import { Stock } from '../models/stock';
+import { Foundation } from '../models/foundation';
+import { Column } from '../models/column';
 
 @Component({ selector: 'app-game-infos', template: '' })
 class AppGameInfosComponent {

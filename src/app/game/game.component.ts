@@ -1,10 +1,10 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 
-import { Card } from '../card';
-import { Column } from '../column';
-import { Stock } from '../stock';
+import { Card } from '../models/card';
+import { Column } from '../models/column';
+import { Stock } from '../models/stock';
 import { CardsService } from '../services/cards.service';
-import { Foundation } from '../foundation';
+import { Foundation } from '../models/foundation';
 
 @Component({
   selector: 'app-game',

@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GameTopRowComponent } from './game-top-row.component';
 import { AppCardStubComponent } from '../card/card.component.stub';
-import { Stock } from '../stock';
+import { Stock } from '../models/stock';
 
 describe('GameTopRowComponent', () => {
   let component: GameTopRowComponent;

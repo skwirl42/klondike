@@ -1,8 +1,8 @@
 import { Component, Input, EventEmitter, Output } from '@angular/core';
 
-import { Stock } from '../stock';
-import { Card } from '../card';
-import { Foundation } from '../foundation';
+import { Stock } from '../models/stock';
+import { Card } from '../models/card';
+import { Foundation } from '../models/foundation';
 
 @Component({
   selector: 'app-game-top-row',

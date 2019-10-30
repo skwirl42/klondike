@@ -1,5 +1,5 @@
 import { Component, HostBinding, Input, HostListener, Output, EventEmitter } from '@angular/core';
-import { Card } from '../card';
+import { Card } from '../models/card';
 
 @Component({
   selector: 'app-card',

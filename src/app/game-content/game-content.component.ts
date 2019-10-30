@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
-import { Column } from '../column';
-import { Card } from '../card';
+import { Column } from '../models/column';
+import { Card } from '../models/card';
 
 @Component({
   selector: 'app-game-content',

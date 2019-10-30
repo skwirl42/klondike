@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 
-import { Card, suits } from '../card';
-import { Column } from '../column';
-import { Stock } from '../stock';
-import { CardContainer } from '../card-container';
-import { Foundation } from '../foundation';
+import { Card, suits } from '../models/card';
+import { Column } from '../models/column';
+import { Stock } from '../models/stock';
+import { CardContainer } from '../models/card-container';
+import { Foundation } from '../models/foundation';
 
 
 @Injectable({
