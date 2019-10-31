@@ -8,6 +8,8 @@ describe('CardsService', () => {
 
   it('generateCards generate cards', () => {
     service.generateCards();
-    expect(service.generateCards.length).toBe(suits.length * this.FAMILIY_NUMBER);
+    expect(service.columns.length).toBe(service.COLUMNS_NUMBER);
+    expect(service.foundations.length).toBe(suits.length);
+    expect(service.stock.length).toBeGreaterThan(0);
   });
 });

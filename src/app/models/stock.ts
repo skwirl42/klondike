@@ -6,6 +6,10 @@ export class Stock implements CardContainer {
 
   constructor(public cards: Card[]) { }
 
+  get length(): number {
+    return this.cards.length + this.revealedCards.length;
+  }
+
   revealCards() {
     const card = this.cards.pop();
     card.hidden = false;
