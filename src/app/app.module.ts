@@ -9,6 +9,8 @@ import { GameContentComponent } from './game-content/game-content.component';
 import { CardComponent } from './card/card.component';
 
 import { CardsService } from './services/cards.service';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,8 @@ import { CardsService } from './services/cards.service';
     CardComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     CardsService
