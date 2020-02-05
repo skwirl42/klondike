@@ -43,9 +43,12 @@ export class Card {
   public get cardValue(): string {
     const numericValue = this.value % 13;
     if (numericValue > 9) {
-      return ['j', 'q', 'k'][numericValue - 10];
+      return ['J', 'Q', 'K'][numericValue - 10];
+    } else if (numericValue === 0) {
+      return 'A';
+    } else {
+      return (numericValue + 1).toString();
     }
-    return (numericValue + 1).toString();
   }
 
   public get suit(): Suit {
