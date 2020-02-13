@@ -62,3 +62,8 @@
 .foundation>app-card {
   position: absolute;
 }
+
+.placeholder-svg {
+  width: auto;
+  height: 100%;
+}

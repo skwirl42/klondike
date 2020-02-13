@@ -1,3 +1,9 @@
 <ng-container *ngIf="!card.hidden">
-  {{ card.cardValue }} {{ card.suit.symbol }}
+  <svg xmlns="http://www.w3.org/2000/svg" height="70" width="50" class='placeholder-svg' />
+  <div class="right-side-up">
+    <div class="card-value">{{ card.cardValue }}&nbsp;{{ card.suit.symbol }}</div>
+  </div>
+  <div class="upside-down">
+    <div class="card-value">{{ card.cardValue }}&nbsp;{{ card.suit.symbol }}</div>
+  </div>
 </ng-container>

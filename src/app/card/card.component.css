@@ -20,3 +20,21 @@
   z-index: 1;
   transition: 0ms;
 }
+
+.right-side-up {
+  position: absolute;
+  top: 5%;
+  left: 5%;
+}
+
+.upside-down {
+  transform: rotate(180deg);
+  right: 5%;
+  bottom: 5%;
+  position: absolute;
+}
+
+.placeholder-svg {
+  width: auto;
+  height: 100%;
+}

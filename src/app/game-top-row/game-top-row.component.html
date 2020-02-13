@@ -1,4 +1,5 @@
 <div class="stockCards" (click)="onResetStock()">
+  <svg xmlns="http://www.w3.org/2000/svg" height="70" width="50" class='placeholder-svg' />
   <app-card *ngFor="let card of lastThreeOf(stock.cards)" [card]="card" (click)="onStockClicked($event)"></app-card>
 </div>
 <div class="revealedCards">
@@ -7,6 +8,7 @@
 </div>
 <div class="foundations">
   <div class="foundation" *ngFor="let foundation of foundations">
+    <svg xmlns="http://www.w3.org/2000/svg" height="70" width="50" class='placeholder-svg' />
     <app-card *ngFor="let card of foundation.cards" [card]="card" (selected)="onCardSelected($event, card)"
       (clicked)="onCardClicked(card)"></app-card>
   </div>
