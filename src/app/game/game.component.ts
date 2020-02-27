@@ -87,14 +87,14 @@ export class GameComponent implements OnInit {
       if (yEvent > this.innerHeight / 100 * 23) {
         const selectedColumn = this.columns[Math.floor(xEvent / (this.innerWidth / this.cardsService.COLUMNS_NUMBER))];
         this.cardsService.tryToMove(this.draggingCards, selectedColumn);
-      } else {
+      } else if (this.draggingCards.length === 1) {
         this.cardsService.tryToMoveFoundation(this.draggingCards);
       }
-      this.resetDragginCards();
+      this.resetDraggingCards();
     }
   }
 
-  private resetDragginCards() {
+  private resetDraggingCards() {
     this.draggingCards.forEach(card => {
       card.x = 0;
       card.y = 0;
@@ -107,6 +107,11 @@ export class GameComponent implements OnInit {
     if (this.draggingCards.length) {
       return false;
     }
+
+    if (event.cards.find(card => card.hidden)) {
+      return false;
+    }
+
     this.baseX = event.x;
     this.baseY = event.y;
     this.draggingCards = event.cards;
@@ -116,6 +121,10 @@ export class GameComponent implements OnInit {
   }
 
   public onCardClicked(event: any) {
+    if (event.cards.find(card => card.hidden)) {
+      return;
+    }
+
     const cards = event.cards;
     this.cardsService.tryToGuessMove(cards);
   }
