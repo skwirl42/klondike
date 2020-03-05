@@ -1,10 +1,5 @@
 export const suits: Suit[] = [
   {
-    symbol: '♠',
-    code: 'spade',
-    color: 'black'
-  },
-  {
     symbol: '♥',
     code: 'heart',
     color: 'red'
@@ -13,6 +8,11 @@ export const suits: Suit[] = [
     symbol: '♦',
     code: 'diamond',
     color: 'red'
+  },
+  {
+    symbol: '♠',
+    code: 'spade',
+    color: 'black'
   },
   {
     symbol: '♣',
