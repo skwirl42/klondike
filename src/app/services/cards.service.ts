@@ -12,7 +12,7 @@ import { Foundation } from '../models/foundation';
 })
 export class CardsService {
   COLUMNS_NUMBER = 7;
-  FAMILIY_NUMBER = 13;
+  CARDS_PER_SUIT = 13;
 
   columns: Column[];
   foundations: Foundation[];
@@ -21,7 +21,7 @@ export class CardsService {
   constructor() { }
 
   private canMove(movingCard: Card, target: Column): boolean {
-    return ((!target.length && movingCard.cardNumericValue === this.FAMILIY_NUMBER - 1) || target.length &&
+    return ((!target.length && movingCard.cardNumericValue === this.CARDS_PER_SUIT - 1) || target.length &&
       movingCard.suit.color !== target.frontCard.suit.color &&
       (movingCard.cardNumericValue === target.frontCard.cardNumericValue - 1));
   }
@@ -43,9 +43,11 @@ export class CardsService {
   }
 
   private moveCards(draggingCards: Card[], targetColumn: CardContainer) {
-    const originalContainer = this.findOriginalContainer(draggingCards[0]);
-    originalContainer.removeCards(draggingCards);
-    targetColumn.addCards(draggingCards);
+    if (targetColumn.canAcceptCards(draggingCards)) {
+      const originalContainer = this.findOriginalContainer(draggingCards[0]);
+      originalContainer.removeCards(draggingCards);
+      targetColumn.addCards(draggingCards);
+    }
   }
 
   public tryToMove(draggingCards: Card[], target: Column) {
@@ -55,7 +57,7 @@ export class CardsService {
   }
 
   public generateCards() {
-    const cardsValues = Array.from(Array(suits.length * this.FAMILIY_NUMBER).keys());
+    const cardsValues = Array.from(Array(suits.length * this.CARDS_PER_SUIT).keys());
     const cardsValuesShuffled = [];
     while (cardsValues.length) {
       const randomIndex = Math.floor(Math.random() * cardsValues.length);
@@ -72,8 +74,8 @@ export class CardsService {
     }
     this.stock = new Stock(cardsValuesShuffled.map(value => new Card(value)));
     this.foundations = [];
-    suits.map((familiy) => {
-      this.foundations.push(new Foundation(familiy));
+    suits.map((family) => {
+      this.foundations.push(new Foundation(family));
     });
   }
 

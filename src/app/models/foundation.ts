@@ -1,8 +1,13 @@
 import { Card, Suit } from './card';
 import { CardContainer } from './card-container';
 import { registerLocaleData } from '@angular/common';
+import { Output, EventEmitter } from '@angular/core';
 
 export class Foundation implements CardContainer {
+  @Output() completed = new EventEmitter();
+
+  CARDS_PER_SUIT = 13;
+
   public cards: Card[] = [];
 
   constructor(public suit: Suit) { }
@@ -27,7 +32,14 @@ export class Foundation implements CardContainer {
     this.cards.splice(this.cards.indexOf(cards[0]));
   }
 
+  canAcceptCards(cards: Card[]): boolean {
+    return (cards.length === 1);
+  }
+
   addCards(cards: Card[]): void {
     cards.forEach(card => this.cards.push(card));
+    if (this.cards.length === this.CARDS_PER_SUIT) {
+      this.completed.emit(this);
+    }
   }
 }

@@ -34,6 +34,10 @@ export class Stock implements CardContainer {
     }
   }
 
+  canAcceptCards(cards: Card[]): boolean {
+    return false;
+  }
+
   addCards(cards: Card[]): void {
     throw new Error('Method not implemented.');
   }

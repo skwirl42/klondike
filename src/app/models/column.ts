@@ -29,6 +29,10 @@ export class Column implements CardContainer {
     }
   }
 
+  canAcceptCards(cards: Card[]): boolean {
+    return true;
+  }
+
   addCards(cards: Card[]): void {
     cards.forEach(card => this.cards.push(card));
   }
