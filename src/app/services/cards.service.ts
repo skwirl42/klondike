@@ -5,7 +5,7 @@ import { Column } from '../models/column';
 import { Stock } from '../models/stock';
 import { CardContainer } from '../models/card-container';
 import { Foundation } from '../models/foundation';
-
+import * as seedrandom from 'seedrandom';
 
 @Injectable({
   providedIn: 'root',
@@ -57,10 +57,13 @@ export class CardsService {
   }
 
   public generateCards() {
+    const seed = Date.now().toString();
+    const prng = seedrandom(seed);
+
     const cardsValues = Array.from(Array(suits.length * this.CARDS_PER_SUIT).keys());
     const cardsValuesShuffled = [];
     while (cardsValues.length) {
-      const randomIndex = Math.floor(Math.random() * cardsValues.length);
+      const randomIndex = Math.floor(prng() * cardsValues.length);
       cardsValuesShuffled.push(cardsValues[randomIndex]);
       cardsValues.splice(randomIndex, 1);
     }
@@ -95,11 +98,11 @@ export class CardsService {
   public tryToGuessMove(cards: Card[]) {
     const card = cards[0];
     const foundation = this.foundations.find(f => this.canMoveFoundation(card, f));
-    if (foundation) {
+    if (foundation && foundation.canAcceptCards(cards)) {
       return this.moveCards(cards, foundation);
     }
     const column = this.columns.find(c => this.canMove(card, c));
-    if (column) {
+    if (column && column.canAcceptCards(cards)) {
       this.moveCards(cards, column);
     }
   }
